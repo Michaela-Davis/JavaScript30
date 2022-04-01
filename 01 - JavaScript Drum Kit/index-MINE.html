@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
+  <script>
+    // add event listener to the document object (when 'keydown' event occurs, (for every time an event happens run the code inside the curly brackets) )
+    document.addEventListener('keydown', (e) => {
+  
+      // create a variable named key which =s the first item in the DOM with the corresponding CSS selector, in this case defined by a data attribute (essentially, document.querySelector(selector) = search the DOM for the first element that matches the CSS selector)
+      let audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  
+      let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+  
+      // error catches, prevent console errors for keydown events not defined
+      if (!audio || !key) return;
+  
+      // when keydown event happens then run the 'play' function that is native to audio HTML elements
+      audio.play();
+  
+      // when keydown event happens add the class "playing" to that div element
+      key.classList.add("playing");
+    })
+  
+    // add event listener to the document object (when 'transitionend' event occurs, (for every time an event happens run the code inside the curly brackets) )
+    document.addEventListener('transitionend', (e) => {
+  
+      // when 'transitionend' event occurs remove the class "playing" from the event's source element
+      e.srcElement.classList.remove("playing");
+    })
+  </script>
 </head>
 <body>
-
-
   <div class="keys">
     <div data-key="65" class="key">
       <kbd>A</kbd>
@@ -56,11 +80,5 @@
   <audio data-key="74" src="sounds/snare.wav"></audio>
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
-
-<script>
-
-</script>
-
-
 </body>
 </html>
